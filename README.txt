@@ -1,3 +1,5 @@
+== This is a project vork from Lucene svn for NTU Software design pattern 102-1 ==
+
 Apache Lucene/Solr
 
 lucene/ is a search engine library
