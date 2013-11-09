@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-十一月-09 10:56" filterScript="// no filter script yet defined for this class diagram&#10;// use CTRL+SPACE for completion suggestions" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.document.Document" project="lucene-trunk" xLocation="8" yLocation="-41"/>
+        <class className="org.apache.lucene.index.IndexDocument" project="lucene-trunk" xLocation="446" yLocation="-42"/>
+    </diagram>
+</ajsv>
