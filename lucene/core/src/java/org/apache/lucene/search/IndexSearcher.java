@@ -643,7 +643,12 @@ public class IndexSearcher {
   public Explanation explain(Query query, int doc) throws IOException {
     return explain(createNormalizedWeight(query), doc);
   }
-
+  public Summary summarize(Query query, int doc) throws IOException {
+    System.out.println("summerize!!");
+    return new Summary();
+  }
+  
+  
   /** Expert: low-level implementation method
    * Returns an Explanation that describes how <code>doc</code> scored against
    * <code>weight</code>.
