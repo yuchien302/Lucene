@@ -20,6 +20,6 @@ package org.apache.lucene.search;
 public class Summary {
   public Summary() {
     
-    System.out.println("Summary constructer!!");
+    System.out.println("Summary constructer2!!");
   }
 }
