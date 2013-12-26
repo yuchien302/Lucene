@@ -17,11 +17,6 @@ package org.apache.lucene.search;
  * limitations under the License.
  */
 
-public class Summary {
-  // TODO
-  
-  public Summary() {
-    
-    System.out.println("Summary constructer!!");
-  }
+public class FastVectorHighlighter implements BaseHighlightAdapter {
+  // TODO for 睿謙
 }

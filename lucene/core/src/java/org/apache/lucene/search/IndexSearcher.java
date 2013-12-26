@@ -645,6 +645,7 @@ public class IndexSearcher {
   }
   public Summary summarize(Query query, int doc) throws IOException {
     System.out.println("summerize!!");
+    // TODO
     return new Summary();
   }
   

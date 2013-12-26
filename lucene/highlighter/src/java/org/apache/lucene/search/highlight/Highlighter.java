@@ -50,6 +50,7 @@ public class Highlighter
    public Highlighter(Formatter formatter, Scorer fragmentScorer)
    {
     this(formatter,new DefaultEncoder(),fragmentScorer);
+    System.out.println("lalala~~~ HI~~ 123");
   }
 
 

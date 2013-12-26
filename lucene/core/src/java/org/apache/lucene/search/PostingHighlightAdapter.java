@@ -17,11 +17,7 @@ package org.apache.lucene.search;
  * limitations under the License.
  */
 
-public class Summary {
-  // TODO
+public class PostingHighlightAdapter {
+  //TODO for 曉飛
   
-  public Summary() {
-    
-    System.out.println("Summary constructer!!");
-  }
 }

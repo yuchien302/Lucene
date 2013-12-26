@@ -17,11 +17,19 @@ package org.apache.lucene.search;
  * limitations under the License.
  */
 
-public class Summary {
-  // TODO
-  
-  public Summary() {
-    
-    System.out.println("Summary constructer!!");
+public class Match {
+  // TODO 
+  private String context;
+  private int position;
+  public Match(String _context,int _position){
+    context = _context;
+    position = _position;
+  }
+  public String toString(){
+    return context;
+  }
+  public String toString(int maxMatchLength){
+    //TODO find the required length string from context and output
+    return null;
   }
 }
