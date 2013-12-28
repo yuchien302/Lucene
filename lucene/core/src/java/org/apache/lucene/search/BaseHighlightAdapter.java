@@ -23,3 +23,15 @@ public interface BaseHighlightAdapter {
   public Match[] highlight(int docID,IndexSearcher searcher,Query query)  throws IOException;
   
 }
+/*
+ * This class is used to define some useful constant when develop adapters.
+ * DEFAULT_MAX_LENGTH is the length the default length of match string.
+ * DEFAULT_MAX_CATCH is the max number of match we get, this value is set
+ * for get as much as we can. 
+ */
+class AdapterConstantSet{
+  public static final int DEFAULT_MAX_LENGTH = 100;
+  public static final int DEFAULT_MAX_CATCH = 2147483647;
+  //Do not allow to initialize a object of this class
+  private AdapterConstantSet(){}
+}
