@@ -37,11 +37,15 @@ public class FVHAdapter implements BaseHighlightAdapter{
   public static final String PRE_TAG = "TheMatchTagTryToGetThePlaceOfThisTag";   //pre tag
   public static final String POST_TAG = "";            //post tag
   
+  private int maxCatch;
   private FastVectorHighlighter highlighter;
   public FVHAdapter(){
+    this(AdapterConstantSet.DEFAULT_MAX_CATCH);
+  }
+  public FVHAdapter(int _maxCatch){
+    maxCatch = _maxCatch;
     highlighter = new FastVectorHighlighter();
   }
-  
   @Override
   public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException{
     ArrayList<Match> matchList = new ArrayList<Match>(0);
@@ -53,15 +57,37 @@ public class FVHAdapter implements BaseHighlightAdapter{
     
     while(iterator.hasNext()){
       StorableField field = iterator.next();
-      String[] bestFragments = highlighter.getBestFragments(fieldQuery,searcher.getIndexReader(),docID,field.name(), AdapterConstantSet.DEFAULT_MAX_LENGTH, AdapterConstantSet.DEFAULT_MAX_CATCH, new SimpleFragListBuilder(), new SimpleFragmentsBuilder(), new String[]{PRE_TAG}, new String[]{POST_TAG},  new DefaultEncoder());
+      String[] bestFragments = highlighter.getBestFragments(fieldQuery,searcher.getIndexReader(),docID,field.name(), AdapterConstantSet.DEFAULT_MAX_LENGTH, maxCatch, new SimpleFragListBuilder(), new SimpleFragmentsBuilder(), new String[]{PRE_TAG}, new String[]{POST_TAG},  new DefaultEncoder());
       for(String bestFragment:bestFragments){
-        int delta = bestFragment.indexOf(PRE_TAG,0);
-        String[] tmp = bestFragment.split(PRE_TAG);
-        String matched = String.format("%s%s",tmp[0],tmp[1]);
-        matchList.add(new Match(matched,delta));
+        Integer[] positions = getPositions(bestFragment);
+        String matched = removePreTag(bestFragment);
+        System.out.println(matched);
+        
+        for(int i = 0;i < positions.length;i++){
+          matchList.add(new Match(matched,positions[i] - i * (PRE_TAG.length())));
+        }
       }
     }
     return matchList.toArray(new Match[0]);
+  }
+  private Integer[] getPositions(String bestFragment){
+    ArrayList<Integer> posList = new ArrayList<Integer>(0);
+    int delta = 0;
+    while(true){
+      if((delta = bestFragment.indexOf(PRE_TAG,delta)) == -1)
+        break;
+      posList.add(new Integer(delta));
+      delta += 1;
+    }
+    return posList.toArray(new Integer[0]);
+  }
+  private String removePreTag(String bestFragment){
+    String[] splits = bestFragment.split(PRE_TAG);
+    String match = "";
+    for(String s:splits){
+      match = match + s;
+    }
+    return match;
   }
   // TODO for 睿謙
 }
