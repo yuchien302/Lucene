@@ -41,6 +41,8 @@ public class FVHAdapter implements BaseHighlightAdapter{
   public FVHAdapter(){
     highlighter = new FastVectorHighlighter();
   }
+  
+  @Override
   public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException{
     ArrayList<Match> matchList = new ArrayList<Match>(0);
     final IndexReader reader = searcher.getIndexReader();
@@ -59,6 +61,7 @@ public class FVHAdapter implements BaseHighlightAdapter{
         matchList.add(new Match(matched,delta));
       }
     }
+    System.out.println("[in FVH] matched:" + matchList.size());
     return matchList.toArray(new Match[0]);
   }
   // TODO for 睿謙
