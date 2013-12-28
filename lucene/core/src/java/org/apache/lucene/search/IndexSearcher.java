@@ -651,7 +651,6 @@ public class IndexSearcher {
   
   
   public Summary summarize(Query query, int docId) throws IOException {
-    System.out.println("[log] default summerize!!");
     // TODO
     BaseHighlightAdapter highlighter = new HighlightAdapter();
     return summarize(query, docId, highlighter);
@@ -660,10 +659,9 @@ public class IndexSearcher {
   
   
   public Summary summarize(Query query, int docId, BaseHighlightAdapter highlighter) throws IOException {
-    System.out.println("[log] summerize!!");
     // TODO
     Match[] matches = highlighter.highlight(docId, this , query);
-    System.out.println("[debug] matched:" + matches.length);
+//    System.out.println("[summarize] matched:" + matches.length);
     Summary sum = new Summary(matches, docId);
     return sum;
   }  

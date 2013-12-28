@@ -89,6 +89,7 @@ public class PostingsHighlightAdapter implements BaseHighlightAdapter {
           j++;
         }
         String temp=s.substring(i+3, j);
+        temp=clean(temp,"null");
         
         int k=i-1;
         int prelen=(final_length-temp.length())/2+1;
@@ -103,6 +104,7 @@ public class PostingsHighlightAdapter implements BaseHighlightAdapter {
         }
         
         int prePosition=k;
+        prePosition=0;
         String pre=clean(s.substring(prePosition, i), "pre");
         
         k=j+5;
@@ -117,7 +119,7 @@ public class PostingsHighlightAdapter implements BaseHighlightAdapter {
           k++;
         }
         int postPosition=k;
-        
+        postPosition=length;
         String post=clean(s.substring(j+4,postPosition),"post");
         Match match=new Match(pre+temp+post, pre.length());
         result.add(match);
@@ -144,7 +146,7 @@ public class PostingsHighlightAdapter implements BaseHighlightAdapter {
   {
     String result="";
     result=toClean.replace("<b>","");
-    result=toClean.replace("</b>","");
+    result=result.replace("</b>","");
     if(result.length()==0) return result;
     if(p=="pre")
     {

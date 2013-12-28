@@ -29,9 +29,7 @@ public class Summary {
     this.matches = matches;
     if(matches!=null)
       this.matchCount = matches.length;
-    else
-      System.out.println("[warning] no Match");
-    System.out.println("[log] Summary constructer!!");
+    
   }
   
   public String toString(){
@@ -39,9 +37,14 @@ public class Summary {
   }
   
   public String toString(int maxLengthReturned){
-    String str = "In docId=" + docId + ", matched " + matchCount + " times.\n";
+    String str=("  In docId=" + docId + ", matched " + matchCount);
+    if( (matchCount==1) || (matchCount==0) )
+      str += " time.\n";
+    else
+      str += " times.\n";
+    
     for(int i = 0; i<matchCount; i++){
-      str+=("#" + i + " : position= "+ matches[i].getPosition() + " : =>" + matches[i].toString(maxLengthReturned) + "<=\n");
+      str+=("  #" + (i+1) + " : position="+ matches[i].getPosition() + " : " + matches[i].toString(maxLengthReturned) + "\n");
     }
     return str;
     
