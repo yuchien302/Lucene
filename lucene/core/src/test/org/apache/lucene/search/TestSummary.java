@@ -22,7 +22,7 @@ import org.apache.lucene.util.LuceneTestCase;
 public class TestSummary extends LuceneTestCase {
   public void testToString(){
    Summary summary = new Summary();
-   //summary with docid "1"; match cnt "3"; matches "Happy New Year!", "Happy Birthday!", "Happy Everyday!"
+   //summary with docid "1"; match cnt "3"; matches "Happy New Year!", "Happy Birthday!", "Happy Everyday! "
    assertEquals("match count:3\nmatches:'Happy New Year!','Happy Birthday!','Happy Everyday!'",summary.toString());
   }
   public void testToStringWithInteger(){
