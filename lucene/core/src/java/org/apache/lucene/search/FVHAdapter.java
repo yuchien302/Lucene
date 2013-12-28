@@ -34,10 +34,8 @@ import org.apache.lucene.search.vectorhighlight.SimpleFragmentsBuilder;
 
 public class FVHAdapter implements BaseHighlightAdapter{
   //TODO actually define the constant
-  public static final int SOME_CONSTANT = 100;                      //max match length
-  public static final int SOME_CONSTANT2 = 2147483647;              //max match number
-  public static final String SOME_CONSTANT_STRING1 = "RAYXDDDDD";   //pre tag
-  public static final String SOME_CONSTANT_STRING2 = "";            //post tag
+  public static final String PRE_TAG = "TheMatchTagTryToGetThePlaceOfThisTag";   //pre tag
+  public static final String POST_TAG = "";            //post tag
   
   private FastVectorHighlighter highlighter;
   public FVHAdapter(){
@@ -55,10 +53,10 @@ public class FVHAdapter implements BaseHighlightAdapter{
     
     while(iterator.hasNext()){
       StorableField field = iterator.next();
-      String[] bestFragments = highlighter.getBestFragments(fieldQuery,searcher.getIndexReader(),docID,field.name(),SOME_CONSTANT,SOME_CONSTANT2, new SimpleFragListBuilder(), new SimpleFragmentsBuilder(), new String[]{SOME_CONSTANT_STRING1}, new String[]{SOME_CONSTANT_STRING2},  new DefaultEncoder());
+      String[] bestFragments = highlighter.getBestFragments(fieldQuery,searcher.getIndexReader(),docID,field.name(), AdapterConstantSet.DEFAULT_MAX_LENGTH, AdapterConstantSet.DEFAULT_MAX_CATCH, new SimpleFragListBuilder(), new SimpleFragmentsBuilder(), new String[]{PRE_TAG}, new String[]{POST_TAG},  new DefaultEncoder());
       for(String bestFragment:bestFragments){
         int delta = bestFragment.indexOf("<b>",0);
-        String[] tmp = bestFragment.split(SOME_CONSTANT_STRING1);
+        String[] tmp = bestFragment.split(PRE_TAG);
         String matched = String.format("%s%s",tmp[0],tmp[1]);
         matchList.add(new Match(matched,delta));
       }
