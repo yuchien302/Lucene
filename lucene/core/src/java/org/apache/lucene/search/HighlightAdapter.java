@@ -36,7 +36,7 @@ public class HighlightAdapter implements BaseHighlightAdapter {
   public static final int maxNumWord = 100;
   public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException
   {
-    final QueryScorer scorer = new QueryScorer(query);
+	final QueryScorer scorer = new QueryScorer(query);
     final IndexReader reader = searcher.getIndexReader();
     highlighter=new Highlighter(scorer);
   
@@ -62,7 +62,7 @@ public class HighlightAdapter implements BaseHighlightAdapter {
 		    if(delta==-1) // if no keyword in text
 		      break;
 		    String matched = bestFragment.substring(Math.max(0,delta-maxNumWord), Math.min(bestFragment.length(),delta+maxNumWord));  //sanity chec
-			flag = flag+delta+1;
+			flag = delta+keyword.length()+1;
 		    matchList.add(new Match(matched,delta));
 		  }
 	    }
