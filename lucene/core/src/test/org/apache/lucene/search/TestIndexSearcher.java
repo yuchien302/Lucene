@@ -22,9 +22,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.MockAnalyzer;
+import org.apache.lucene.analysis.MockTokenizer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.FieldType;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.RandomIndexWriter;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
@@ -138,5 +145,81 @@ public class TestIndexSearcher extends LuceneTestCase {
       IOUtils.close(r, dir);
     }
   }
+  
+  @Test
+  public void testSimpleSummarize()throws Exception{
+    //Directory dir = newDirectory();
+    IndexWriter writer = new IndexWriter(dir, newIndexWriterConfig(TEST_VERSION_CURRENT, new MockAnalyzer(random())));  
+    Document doc = new Document();
+    FieldType type = new FieldType(TextField.TYPE_STORED);
+    Field field = new Field("contents", "This is a test where apple is highlighted and should be highlighted. Happy New Year!!! An apple a day keeps the doctor away!!!", type);
+    doc.add(field);
+    writer.addDocument(doc);    
+    writer.close();
+
+    IndexReader reader = DirectoryReader.open(writer, true);
+    IndexSearcher searcher = new IndexSearcher(reader);
+    
+    TermQuery query = new TermQuery(new Term("contents", "apple"));
+    
+    /*Match[] matches = new Match[2];
+    matches[0] = new Match("where apple is highlighted",6);
+    matches[1] = new Match("Year!!! An apple a day",11);*/    
+    String matchStr1 = new String("where apple is highlighted");
+    String matchStr2 = new String("Year!!! An apple a day");
+    String matchString = new String("In docId=0, matched 2 times.\n#0 : "+matchStr1+"at position 6\n#1 : "+matchStr2+"at position 11\n");
+    
+    int docId = 0;
+    
+    Summary summary = searcher.summarize(query, docId);
+    assertEquals(summary.toString(),matchString);
+    System.out.println(searcher.summarize(query,0));
+    
+  }
+  
+  /*@Test
+  public void testExplain() throws Exception{
+    Directory dir = newDirectory();
+    IndexWriter writer = new IndexWriter(dir, newIndexWriterConfig(TEST_VERSION_CURRENT, new MockAnalyzer(random())));
+
+    Document doc  = new Document();
+    Document doc2 = new Document();
+    Document doc3 = new Document();
+    Document doc4 = new Document();
+    FieldType type = new FieldType(TextField.TYPE_STORED);
+
+    Field field = new Field("contents", "apple other other other boy", type);
+    Field field2 = new Field("contents", "apple apple other other other", type);
+    Field field3 = new Field("contents", "apple apple apple other other", type);   
+    Field field4 = new Field("contents", "apple apple apple apple other", type);
+    
+    doc.add(field);
+    doc2.add(field2);
+    doc3.add(field3);
+    doc4.add(field4);
+    
+    writer.addDocument(doc); 
+    writer.addDocument(doc2); 
+    writer.addDocument(doc3); 
+    writer.addDocument(doc4); 
+
+    
+    IndexReader reader = DirectoryReader.open(writer, true);
+    IndexSearcher searcher = newSearcher(reader);
+    
+    TermQuery q = new TermQuery(new Term("contents", "apple"));    
+
+    int hitsPerPage = 10;
+    TopScoreDocCollector collector = TopScoreDocCollector.create(hitsPerPage, true);
+    searcher.search(q, collector);
+    ScoreDoc[] hits = collector.topDocs().scoreDocs;
+    
+    System.out.println(searcher.explain(q,hits[3].doc));
+    
+    reader.close();
+    writer.close();
+    dir.close();    
+  }*/
+
   
 }
