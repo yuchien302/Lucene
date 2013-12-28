@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-Dec-03 11:35" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.search.Weight" project="finalProject" xLocation="0" yLocation="0"/>
+        <class className="org.apache.solr.search.join.IgnoreAcceptDocsQuery$IADWeight" project="finalProject" xLocation="20" yLocation="20"/>
+        <class className="org.apache.solr.search.JoinQuery$JoinQueryWeight" project="finalProject" xLocation="40" yLocation="40"/>
+        <class className="org.apache.solr.schema.SpatialDistanceQuery$SpatialWeight" project="finalProject" xLocation="60" yLocation="60"/>
+        <class className="org.apache.solr.search.SolrConstantScoreQuery$ConstantWeight" project="finalProject" xLocation="80" yLocation="80"/>
+        <class className="org.apache.lucene.queries.function.BoostedQuery$BoostedWeight" project="finalProject" xLocation="100" yLocation="100"/>
+        <class className="org.apache.lucene.queries.CustomScoreQuery$CustomWeight" project="finalProject" xLocation="120" yLocation="120"/>
+        <class className="org.apache.lucene.queries.function.FunctionQuery$FunctionWeight" project="finalProject" xLocation="140" yLocation="140"/>
+        <class className="org.apache.lucene.search.join.TermsIncludingScoreQuery$1" project="finalProject" xLocation="160" yLocation="160"/>
+        <class className="org.apache.lucene.search.join.ToChildBlockJoinQuery$ToChildBlockJoinWeight" project="finalProject" xLocation="180" yLocation="180"/>
+        <class className="org.apache.lucene.search.join.ToParentBlockJoinQuery$BlockJoinWeight" project="finalProject" xLocation="200" yLocation="200"/>
+        <class className="org.apache.lucene.facet.search.DrillSidewaysQuery$1" project="finalProject" xLocation="220" yLocation="220"/>
+        <class className="org.apache.lucene.search.AssertingWeight" project="finalProject" xLocation="240" yLocation="240"/>
+        <class className="org.apache.lucene.search.JustCompileSearch$JustCompileWeight" project="finalProject" xLocation="260" yLocation="260"/>
+        <class className="org.apache.lucene.search.BooleanQuery$BooleanWeight" project="finalProject" xLocation="280" yLocation="280"/>
+        <class className="org.apache.lucene.search.ConstantScoreQuery$ConstantWeight" project="finalProject" xLocation="300" yLocation="300"/>
+        <class className="org.apache.lucene.search.DisjunctionMaxQuery$DisjunctionMaxWeight" project="finalProject" xLocation="320" yLocation="320"/>
+        <class className="org.apache.lucene.search.FilteredQuery$1" project="finalProject" xLocation="340" yLocation="340"/>
+        <class className="org.apache.lucene.search.MatchAllDocsQuery$MatchAllDocsWeight" project="finalProject" xLocation="360" yLocation="360"/>
+        <class className="org.apache.lucene.search.MultiPhraseQuery$MultiPhraseWeight" project="finalProject" xLocation="380" yLocation="380"/>
+        <class className="org.apache.lucene.search.PhraseQuery$PhraseWeight" project="finalProject" xLocation="400" yLocation="400"/>
+        <class className="org.apache.lucene.search.spans.SpanWeight" project="finalProject" xLocation="420" yLocation="420"/>
+        <class className="org.apache.lucene.search.TermQuery$TermWeight" project="finalProject" xLocation="440" yLocation="440"/>
+    </diagram>
+</ajsv>

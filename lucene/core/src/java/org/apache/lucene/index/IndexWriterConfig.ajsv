@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-Nov-12 11:51" filterScript="// no filter script yet defined for this class diagram&#10;// use CTRL+SPACE for completion suggestions&#10;hide all classes" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.index.IndexWriterConfig" project="finalProject" xLocation="138" yLocation="315"/>
+        <class className="org.apache.lucene.index.LiveIndexWriterConfig" project="finalProject" xLocation="113" yLocation="144"/>
+        <class className="java.lang.Cloneable" project="finalProject" xLocation="511" yLocation="308"/>
+    </diagram>
+</ajsv>

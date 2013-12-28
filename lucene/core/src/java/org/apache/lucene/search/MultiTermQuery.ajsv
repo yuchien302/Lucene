@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-Dec-03 11:21" filterScript="// no filter script yet defined for this class diagram&#10;// use CTRL+SPACE for completion suggestions" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.search.MultiTermQuery" project="finalProject" xLocation="711" yLocation="107"/>
+        <class className="org.apache.lucene.search.TestPrefixRandom$DumbPrefixQuery" project="finalProject" xLocation="1337" yLocation="1796"/>
+        <class className="org.apache.lucene.search.TestRegexpRandom2$DumbRegexpQuery" project="finalProject" xLocation="410" yLocation="1842"/>
+        <class className="java.lang.Object" project="finalProject" xLocation="100" yLocation="630"/>
+    </diagram>
+</ajsv>

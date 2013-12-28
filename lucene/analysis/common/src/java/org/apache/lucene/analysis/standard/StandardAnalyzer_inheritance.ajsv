@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-Nov-12 03:12" filterScript="// no filter script yet defined for this class diagram&#10;// use CTRL+SPACE for completion suggestions&#10;hide all classes" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.analysis.standard.StandardAnalyzer" project="finalProject" xLocation="994" yLocation="1163"/>
+        <class className="org.apache.lucene.analysis.util.StopwordAnalyzerBase" project="finalProject" xLocation="946" yLocation="916"/>
+        <class className="org.apache.lucene.analysis.Analyzer" project="finalProject" xLocation="1010" yLocation="715"/>
+        <class className="java.lang.Object" project="finalProject" xLocation="1022" yLocation="507"/>
+        <class className="java.io.Closeable" project="finalProject" xLocation="1398" yLocation="695"/>
+        <class className="java.lang.AutoCloseable" project="finalProject" xLocation="1396" yLocation="453"/>
+    </diagram>
+</ajsv>

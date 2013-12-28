@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-Nov-12 11:57" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.analysis.standard.StandardAnalyzer" project="finalProject" xLocation="0" yLocation="0"/>
+        <class className="org.apache.lucene.analysis.br.BrazilianAnalyzer" project="finalProject" xLocation="20" yLocation="20"/>
+        <class className="org.apache.lucene.analysis.de.GermanAnalyzer" project="finalProject" xLocation="40" yLocation="40"/>
+        <class className="org.apache.lucene.analysis.el.GreekAnalyzer" project="finalProject" xLocation="60" yLocation="60"/>
+        <class className="org.apache.lucene.analysis.en.EnglishAnalyzer" project="finalProject" xLocation="80" yLocation="80"/>
+        <class className="org.apache.lucene.analysis.fr.FrenchAnalyzer" project="finalProject" xLocation="100" yLocation="100"/>
+        <class className="org.apache.lucene.analysis.nl.DutchAnalyzer" project="finalProject" xLocation="120" yLocation="120"/>
+        <class className="org.apache.lucene.analysis.shingle.ShingleAnalyzerWrapper" project="finalProject" xLocation="140" yLocation="140"/>
+        <class className="org.apache.lucene.analysis.standard.ClassicAnalyzer" project="finalProject" xLocation="160" yLocation="160"/>
+        <class className="org.apache.lucene.analysis.standard.ClassicTokenizer" project="finalProject" xLocation="180" yLocation="180"/>
+        <class className="org.apache.lucene.analysis.standard.ClassicTokenizerFactory" project="finalProject" xLocation="200" yLocation="200"/>
+        <class className="org.apache.lucene.analysis.standard.StandardAnalyzer$1" project="finalProject" xLocation="220" yLocation="220"/>
+        <class className="org.apache.lucene.analysis.standard.StandardTokenizer" project="finalProject" xLocation="240" yLocation="240"/>
+        <class className="org.apache.lucene.analysis.standard.StandardTokenizerFactory" project="finalProject" xLocation="260" yLocation="260"/>
+        <class className="org.apache.lucene.analysis.standard.UAX29URLEmailAnalyzer" project="finalProject" xLocation="280" yLocation="280"/>
+        <class className="org.apache.lucene.analysis.standard.UAX29URLEmailTokenizer" project="finalProject" xLocation="300" yLocation="300"/>
+        <class className="org.apache.lucene.analysis.standard.UAX29URLEmailTokenizerFactory" project="finalProject" xLocation="320" yLocation="320"/>
+        <class className="org.apache.lucene.analysis.core.TestStandardAnalyzer" project="finalProject" xLocation="340" yLocation="340"/>
+        <class className="org.apache.lucene.analysis.miscellaneous.TestWordDelimiterFilter$1" project="finalProject" xLocation="360" yLocation="360"/>
+        <class className="org.apache.lucene.benchmark.byTask.feeds.EnwikiQueryMaker" project="finalProject" xLocation="380" yLocation="380"/>
+        <class className="org.apache.lucene.benchmark.byTask.feeds.LongToEnglishQueryMaker" project="finalProject" xLocation="400" yLocation="400"/>
+        <class className="org.apache.lucene.benchmark.quality.utils.SimpleQQParser" project="finalProject" xLocation="420" yLocation="420"/>
+        <class className="org.apache.lucene.demo.IndexFiles" project="finalProject" xLocation="440" yLocation="440"/>
+        <class className="org.apache.lucene.demo.SearchFiles" project="finalProject" xLocation="460" yLocation="460"/>
+        <class className="org.apache.lucene.demo.xmlparser.FormBasedXmlQueryDemo" project="finalProject" xLocation="480" yLocation="480"/>
+        <class className="org.apache.solr.analysis.TestLuceneMatchVersion" project="finalProject" xLocation="500" yLocation="500"/>
+        <class className="org.apache.solr.core.TestArbitraryIndexDir" project="finalProject" xLocation="520" yLocation="520"/>
+    </diagram>
+</ajsv>

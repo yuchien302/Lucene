@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-Nov-16 01:06" filterScript="// no filter script yet defined for this class diagram&#10;// use CTRL+SPACE for completion suggestions&#10;hide all classes" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.search.similarities.Similarity" project="finalProject" xLocation="216" yLocation="-146"/>
+        <class className="org.apache.lucene.index.sorter.SorterTestBase$NormsSimilarity" project="finalProject" xLocation="-118" yLocation="-19"/>
+        <class className="org.apache.lucene.search.JustCompileSearch$JustCompileSimilarity" project="finalProject" xLocation="127" yLocation="-19"/>
+        <class className="org.apache.lucene.search.TestConjunctions$TFSimilarity" project="finalProject" xLocation="452" yLocation="-10"/>
+        <class className="org.apache.lucene.index.TestCustomNorms$FloatEncodingBoostSimilarity" project="finalProject" xLocation="-289" yLocation="68"/>
+        <class className="org.apache.lucene.search.TestDocValuesScoring$BoostingSimilarity" project="finalProject" xLocation="121" yLocation="68"/>
+        <class className="org.apache.lucene.index.TestNorms$ByteEncodingBoostSimilarity" project="finalProject" xLocation="403" yLocation="66"/>
+        <class className="org.apache.lucene.index.TestUniqueTermCount$TestSimilarity" project="finalProject" xLocation="663" yLocation="-13"/>
+        <class className="org.apache.lucene.search.similarities.BM25Similarity" project="finalProject" xLocation="-169" yLocation="159"/>
+        <class className="org.apache.lucene.search.similarities.MultiSimilarity" project="finalProject" xLocation="81" yLocation="157"/>
+        <class className="org.apache.lucene.search.similarities.PerFieldSimilarityWrapper" project="finalProject" xLocation="313" yLocation="153"/>
+        <class className="org.apache.lucene.search.similarities.SimilarityBase" project="finalProject" xLocation="688" yLocation="156"/>
+        <class className="org.apache.lucene.search.similarities.TFIDFSimilarity" project="finalProject" xLocation="239" yLocation="244"/>
+    </diagram>
+</ajsv>

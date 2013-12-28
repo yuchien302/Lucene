@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-Nov-12 11:55" filterScript="// no filter script yet defined for this class diagram&#10;// use CTRL+SPACE for completion suggestions&#10;hide all classes&#10;hide all methods" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.analysis.standard.StandardAnalyzer" project="finalProject" xLocation="313" yLocation="422"/>
+        <class className="org.apache.lucene.analysis.TokenStream" project="finalProject" xLocation="342" yLocation="-121"/>
+        <class className="org.apache.lucene.analysis.standard.StandardTokenizer" project="finalProject" xLocation="711" yLocation="423"/>
+        <class className="org.apache.lucene.analysis.core.StopFilter" project="finalProject" xLocation="79" yLocation="167"/>
+        <class className="org.apache.lucene.analysis.standard.StandardFilter" project="finalProject" xLocation="-525" yLocation="417"/>
+        <class className="org.apache.lucene.analysis.util.CharArraySet" project="finalProject" xLocation="517" yLocation="46"/>
+        <class className="org.apache.lucene.analysis.core.StopAnalyzer" project="finalProject" xLocation="696" yLocation="239"/>
+        <class className="org.apache.lucene.analysis.core.LowerCaseFilter" project="finalProject" xLocation="-204" yLocation="288"/>
+    </diagram>
+</ajsv>

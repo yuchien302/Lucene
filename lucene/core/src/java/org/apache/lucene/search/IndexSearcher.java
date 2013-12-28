@@ -643,11 +643,34 @@ public class IndexSearcher {
   public Explanation explain(Query query, int doc) throws IOException {
     return explain(createNormalizedWeight(query), doc);
   }
-  public Summary summarize(Query query, int doc) throws IOException {
-    System.out.println("summerize!!");
+  
+  
+  
+  
+  
+  
+  
+  public Summary summarize(Query query, int docId) throws IOException {
+    System.out.println("[log] default summerize!!");
     // TODO
-    return new Summary();
+    BaseHighlightAdapter highlighter = new HighlightAdapter();
+    return summarize(query, docId, highlighter);
+    
   }
+  
+  
+  public Summary summarize(Query query, int docId, BaseHighlightAdapter highlighter) throws IOException {
+    System.out.println("[log] summerize!!");
+    // TODO
+    Match[] matches = highlighter.highlight(docId, this , query);
+    System.out.println("[debug] matched:" + matches.length);
+    Summary sum = new Summary(matches, docId);
+    return sum;
+  }  
+  
+  
+  
+  
   
   
   /** Expert: low-level implementation method

@@ -43,8 +43,9 @@ public class FVHAdapter implements BaseHighlightAdapter{
   public FVHAdapter(){
     highlighter = new FastVectorHighlighter();
   }
+  
+  @Override
   public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException{
-    //BooleanQuery query = queryTranslate(_query);
     ArrayList<Match> matchList = new ArrayList<Match>(0);
     final IndexReader reader = searcher.getIndexReader();
     FieldQuery fieldQuery = highlighter.getFieldQuery(query,reader);

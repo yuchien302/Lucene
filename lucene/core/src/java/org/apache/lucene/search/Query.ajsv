@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-Dec-03 10:54" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.search.Query" project="finalProject" xLocation="0" yLocation="0"/>
+        <class className="org.apache.solr.search.ExtendedQueryBase" project="finalProject" xLocation="20" yLocation="20"/>
+        <class className="org.apache.solr.search.join.IgnoreAcceptDocsQuery" project="finalProject" xLocation="40" yLocation="40"/>
+        <class className="org.apache.solr.search.JoinQuery" project="finalProject" xLocation="60" yLocation="60"/>
+        <class className="org.apache.lucene.sandbox.queries.FuzzyLikeThisQuery" project="finalProject" xLocation="80" yLocation="80"/>
+        <class className="org.apache.lucene.queryparser.classic.TestMultiAnalyzer$DumbQueryWrapper" project="finalProject" xLocation="100" yLocation="100"/>
+        <class className="org.apache.lucene.queryparser.complexPhrase.ComplexPhraseQueryParser$ComplexPhraseQuery" project="finalProject" xLocation="120" yLocation="120"/>
+        <class className="org.apache.lucene.queryparser.surround.query.RewriteQuery" project="finalProject" xLocation="140" yLocation="140"/>
+        <class className="org.apache.lucene.queries.function.BoostedQuery" project="finalProject" xLocation="160" yLocation="160"/>
+        <class className="org.apache.lucene.queries.BoostingQuery" project="finalProject" xLocation="180" yLocation="180"/>
+        <class className="org.apache.lucene.queries.CommonTermsQuery" project="finalProject" xLocation="200" yLocation="200"/>
+        <class className="org.apache.lucene.queries.CustomScoreQuery" project="finalProject" xLocation="220" yLocation="220"/>
+        <class className="org.apache.lucene.queries.function.FunctionQuery" project="finalProject" xLocation="240" yLocation="240"/>
+        <class className="org.apache.lucene.queries.mlt.MoreLikeThisQuery" project="finalProject" xLocation="260" yLocation="260"/>
+        <class className="org.apache.lucene.search.join.TermsIncludingScoreQuery" project="finalProject" xLocation="280" yLocation="280"/>
+        <class className="org.apache.lucene.search.join.ToChildBlockJoinQuery" project="finalProject" xLocation="300" yLocation="300"/>
+        <class className="org.apache.lucene.search.join.ToParentBlockJoinQuery" project="finalProject" xLocation="320" yLocation="320"/>
+        <class className="org.apache.lucene.search.vectorhighlight.FieldQueryTest$1" project="finalProject" xLocation="340" yLocation="340"/>
+        <class className="org.apache.lucene.search.highlight.custom.HighlightCustomQueryTest$CustomQuery" project="finalProject" xLocation="360" yLocation="360"/>
+        <class className="org.apache.lucene.search.highlight.HighlighterTest$1" project="finalProject" xLocation="380" yLocation="380"/>
+        <class className="org.apache.lucene.facet.search.DrillDownQuery" project="finalProject" xLocation="400" yLocation="400"/>
+        <class className="org.apache.lucene.facet.search.DrillSideways$QueryWrapper" project="finalProject" xLocation="420" yLocation="420"/>
+        <class className="org.apache.lucene.facet.search.DrillSidewaysQuery" project="finalProject" xLocation="440" yLocation="440"/>
+        <class className="org.apache.lucene.search.AssertingQuery" project="finalProject" xLocation="460" yLocation="460"/>
+        <class className="org.apache.lucene.search.QueryUtils$1" project="finalProject" xLocation="480" yLocation="480"/>
+        <class className="org.apache.lucene.search.JustCompileSearch$JustCompileQuery" project="finalProject" xLocation="500" yLocation="500"/>
+        <class className="org.apache.lucene.search.BooleanQuery" project="finalProject" xLocation="520" yLocation="520"/>
+        <class className="org.apache.lucene.search.ConstantScoreQuery" project="finalProject" xLocation="540" yLocation="540"/>
+        <class className="org.apache.lucene.search.DisjunctionMaxQuery" project="finalProject" xLocation="560" yLocation="560"/>
+        <class className="org.apache.lucene.search.FilteredQuery" project="finalProject" xLocation="580" yLocation="580"/>
+        <class className="org.apache.lucene.search.MatchAllDocsQuery" project="finalProject" xLocation="600" yLocation="600"/>
+        <class className="org.apache.lucene.search.MultiPhraseQuery" project="finalProject" xLocation="620" yLocation="620"/>
+        <class className="org.apache.lucene.search.MultiTermQuery" project="finalProject" xLocation="640" yLocation="640"/>
+        <class className="org.apache.lucene.search.PhraseQuery" project="finalProject" xLocation="660" yLocation="660"/>
+        <class className="org.apache.lucene.search.spans.SpanQuery" project="finalProject" xLocation="680" yLocation="680"/>
+        <class className="org.apache.lucene.search.TermQuery" project="finalProject" xLocation="700" yLocation="700"/>
+    </diagram>
+</ajsv>

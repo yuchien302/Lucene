@@ -19,9 +19,26 @@ package org.apache.lucene.search;
 
 public class Summary {
   // TODO
+  private int docId;
+  private int matchCount;
+  private Match[] matches;
+  private int fragmentLength=20;
   
-  public Summary() {
+  public Summary(Match[] matches, int docId) {
+    this.docId = docId;
+    this.matches = matches;
+    if(matches!=null)
+      this.matchCount = matches.length;
+    else
+      System.out.println("[warning] no Match");
+    System.out.println("[log] Summary constructer!!");
+  }
+  public String toString(){
+    String str = "In docId=" + docId + ", matched " + matchCount + " times.\n";
+    for(int i = 0; i<matchCount; i++){
+      str+=("#" + i + " : " + matches[i].toString() + "\n");
+    }
+    return str;
     
-    System.out.println("Summary constructer!!");
   }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-Nov-15 11:36" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.index.LiveIndexWriterConfig" project="finalProject" xLocation="0" yLocation="0"/>
+        <class className="org.apache.lucene.index.IndexWriterConfig" project="finalProject" xLocation="20" yLocation="20"/>
+    </diagram>
+</ajsv>

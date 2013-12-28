@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-Nov-12 11:51" filterScript="// no filter script yet defined for this class diagram&#10;// use CTRL+SPACE for completion suggestions&#10;hide all classes" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.index.IndexWriter" project="finalProject" xLocation="1337" yLocation="190"/>
+        <class className="org.apache.lucene.index.TwoPhaseCommit" project="finalProject" xLocation="1860" yLocation="82"/>
+        <class className="org.apache.solr.update.SolrIndexWriter" project="finalProject" xLocation="861" yLocation="721"/>
+        <class className="org.apache.lucene.search.TestControlledRealTimeReopenThread$LatchedIndexWriter" project="finalProject" xLocation="1907" yLocation="712"/>
+        <class className="java.io.Closeable" project="finalProject" xLocation="1856" yLocation="339"/>
+        <class className="org.apache.lucene.index.TestForceMergeForever$MyIndexWriter" project="finalProject" xLocation="1210" yLocation="710"/>
+        <class className="org.apache.lucene.index.TestIndexWriter$MockIndexWriter" project="finalProject" xLocation="1533" yLocation="705"/>
+    </diagram>
+</ajsv>
