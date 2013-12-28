@@ -55,14 +55,12 @@ public class FVHAdapter implements BaseHighlightAdapter{
       StorableField field = iterator.next();
       String[] bestFragments = highlighter.getBestFragments(fieldQuery,searcher.getIndexReader(),docID,field.name(), AdapterConstantSet.DEFAULT_MAX_LENGTH, AdapterConstantSet.DEFAULT_MAX_CATCH, new SimpleFragListBuilder(), new SimpleFragmentsBuilder(), new String[]{PRE_TAG}, new String[]{POST_TAG},  new DefaultEncoder());
       for(String bestFragment:bestFragments){
-        int delta = bestFragment.indexOf("<b>",0);
+        int delta = bestFragment.indexOf(PRE_TAG,0);
         String[] tmp = bestFragment.split(PRE_TAG);
         String matched = String.format("%s%s",tmp[0],tmp[1]);
         matchList.add(new Match(matched,delta));
       }
     }
-    Match[] matchs = matchList.toArray(new Match[0]);
-    System.out.println(matchs.length);
     return matchList.toArray(new Match[0]);
   }
   // TODO for 睿謙
