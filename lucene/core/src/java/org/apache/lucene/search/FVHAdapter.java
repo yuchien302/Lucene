@@ -67,12 +67,5 @@ public class FVHAdapter implements BaseHighlightAdapter{
     System.out.println(matchs.length);
     return matchList.toArray(new Match[0]);
   }
-  private BooleanQuery queryTranslate(Query q){
-    String tmp = q.toString("");
-    String[] pair =tmp.split(":",2);
-    BooleanQuery resultQ = new BooleanQuery();
-    resultQ.add(new TermQuery(new Term(pair[0],pair[1])),Occur.MUST);
-    return resultQ;
-  }
   // TODO for 睿謙
 }
