@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2013-Nov-26 01:14" filterScript="" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.7.16.v20130804-1241">
+        <class className="org.apache.lucene.codecs.diskdv.DiskDocValuesFormat" project="finalProject" xLocation="281" yLocation="549"/>
+        <class className="org.apache.lucene.codecs.DocValuesFormat" project="finalProject" xLocation="192" yLocation="69"/>
+    </diagram>
+</ajsv>

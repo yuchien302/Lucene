@@ -7,6 +7,8 @@ import java.util.Iterator;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.StorableField;
 import org.apache.lucene.index.StoredDocument;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.highlight.DefaultEncoder;
 import org.apache.lucene.search.vectorhighlight.FastVectorHighlighter;
 import org.apache.lucene.search.vectorhighlight.FieldQuery;
@@ -61,8 +63,16 @@ public class FVHAdapter implements BaseHighlightAdapter{
         matchList.add(new Match(matched,delta));
       }
     }
-    System.out.println("[in FVH] matched:" + matchList.size());
+    Match[] matchs = matchList.toArray(new Match[0]);
+    System.out.println(matchs.length);
     return matchList.toArray(new Match[0]);
+  }
+  private BooleanQuery queryTranslate(Query q){
+    String tmp = q.toString("");
+    String[] pair =tmp.split(":",2);
+    BooleanQuery resultQ = new BooleanQuery();
+    resultQ.add(new TermQuery(new Term(pair[0],pair[1])),Occur.MUST);
+    return resultQ;
   }
   // TODO for 睿謙
 }

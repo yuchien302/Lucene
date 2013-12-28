@@ -1,6 +1,18 @@
 package org.apache.lucene.search;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.StorableField;
+import org.apache.lucene.index.StoredDocument;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.util.Version;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,10 +32,41 @@ import java.io.IOException;
  */
 
 public class HighlightAdapter implements BaseHighlightAdapter {
-  // TODO for 傅蕎
-  @Override
-  public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException{
-    return null;
+  private Highlighter highlighter;
+  public static final int maxNumWord = 100;
+  public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException
+  {
+  final QueryScorer scorer=new QueryScorer(query);
+    final IndexReader reader = searcher.getIndexReader();
+  highlighter=new Highlighter(scorer);
+  
+  ArrayList<Match> matchList = new ArrayList<Match>();
+    StoredDocument document = reader.document(docID);
+    Iterator<StorableField> iterator = document.iterator();
+    StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_CURRENT);
+    try{
+	  while(iterator.hasNext()){
+	    StorableField field = iterator.next();
+	    String fieldContent = searcher.doc(docID).getField(field.name()).stringValue();
+	    String bestFragment = highlighter.getBestFragment(analyzer, field.name(), fieldContent);
+	    if(bestFragment!=null){
+		  int flag = 0;
+		  while(true){
+		    int delta = bestFragment.indexOf("<B>",flag);
+		    if(delta==-1) // if no keyword in text
+		    break;
+		    String matched = bestFragment.substring(Math.max(0,delta-maxNumWord), Math.min(bestFragment.length(),delta+maxNumWord));  //sanity check
+		    flag = flag+delta+1;
+		    matchList.add(new Match(matched,delta));
+		  }
+	    }
+	    else
+		  continue;
+	    }
+    }
+	catch(InvalidTokenOffsetsException e){
+    }
+    return matchList.toArray(new Match[matchList.size()]);
   }
+  // TODO for 傅蕎
 }
-
