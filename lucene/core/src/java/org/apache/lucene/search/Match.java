@@ -25,12 +25,29 @@ public class Match {
     context = _context;
     position = _position;
   }
-  public String toString(){
-    String str = (context + "at position:" + position); 
-    return str;
-  }
+
   public String toString(int maxMatchLength){
     //TODO find the required length string from context and output
-    return null;
+    
+//    context = "A a soft a soft";
+//    maxMatchLength = 20;
+//    position = 4;
+    
+    int end = context.indexOf(" ", position);
+    int qlength = end-position;
+    int part = (int) Math.ceil((maxMatchLength-qlength)/2);
+    
+    end = ((end+part)>context.length())? context.length() : end+part;
+    int begin = (position-part)<0? 0 : position-part;
+    
+    end = context.indexOf(" ", end);
+    begin = context.lastIndexOf(" ", begin);
+
+    begin = begin<0? 0 : begin;
+    end = (end>context.length()||end==-1)? context.length() : end;
+    
+    
+//    System.out.println("[important!!]"+context.substring(begin, end).trim());
+    return context.substring(begin, end).trim();
   }
 }

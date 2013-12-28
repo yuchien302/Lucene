@@ -34,9 +34,12 @@ public class Summary {
     System.out.println("[log] Summary constructer!!");
   }
   public String toString(){
+    return this.toString(fragmentLength);
+  }
+  public String toString(int maxLengthReturned){
     String str = "In docId=" + docId + ", matched " + matchCount + " times.\n";
     for(int i = 0; i<matchCount; i++){
-      str+=("#" + i + " : " + matches[i].toString() + "\n");
+      str+=("#" + i + " : " + matches[i].toString(maxLengthReturned) + "\n");
     }
     return str;
     

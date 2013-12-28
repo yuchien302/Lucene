@@ -23,6 +23,23 @@ public class PostingHighlightAdapter implements BaseHighlightAdapter {
   //TODO for 曉飛
   @Override
   public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException{
+    
+    
+    
+    
+    
+    
+    
+    
     return null;
+
+  
+  
+  
+  
+  
   }
 }
+
+
+
