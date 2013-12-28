@@ -25,7 +25,10 @@ public class Match {
     context = _context;
     position = _position;
   }
-
+  public int getPosition(){
+    return position;
+  }
+  
   public String toString(int maxMatchLength){
     //TODO find the required length string from context and output
     
