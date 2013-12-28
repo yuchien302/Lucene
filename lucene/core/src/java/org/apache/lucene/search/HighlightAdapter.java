@@ -36,37 +36,41 @@ public class HighlightAdapter implements BaseHighlightAdapter {
   public static final int maxNumWord = 100;
   public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException
   {
-  final QueryScorer scorer=new QueryScorer(query);
+    final QueryScorer scorer = new QueryScorer(query);
     final IndexReader reader = searcher.getIndexReader();
-  highlighter=new Highlighter(scorer);
+    highlighter=new Highlighter(scorer);
   
-  ArrayList<Match> matchList = new ArrayList<Match>();
+    ArrayList<Match> matchList = new ArrayList<Match>();
     StoredDocument document = reader.document(docID);
     Iterator<StorableField> iterator = document.iterator();
     StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_CURRENT);
     try{
-	  while(iterator.hasNext()){
+	  while(iterator.hasNext()) {
 	    StorableField field = iterator.next();
 	    String fieldContent = searcher.doc(docID).getField(field.name()).stringValue();
 	    String bestFragment = highlighter.getBestFragment(analyzer, field.name(), fieldContent);
 	    if(bestFragment!=null){
+		  String lowerBestFragment = bestFragment.toLowerCase();
+		  String keyword = lowerBestFragment.substring(lowerBestFragment.indexOf("<b>",0)+3,lowerBestFragment.indexOf("</b>",0));
+		  lowerBestFragment = lowerBestFragment.replace("<b>","");
+		  lowerBestFragment = lowerBestFragment.replace("</b>","");
+		  bestFragment = bestFragment.replace("<B>","");
+		  bestFragment = bestFragment.replace("</B>","");
 		  int flag = 0;
 		  while(true){
-		    int delta = bestFragment.indexOf("<B>",flag);
+		    int delta = lowerBestFragment.indexOf(keyword,flag);
 		    if(delta==-1) // if no keyword in text
-		    break;
-		    String matched = bestFragment.substring(Math.max(0,delta-maxNumWord), Math.min(bestFragment.length(),delta+maxNumWord));  //sanity check
-		    flag = flag+delta+1;
+		      break;
+		    String matched = bestFragment.substring(Math.max(0,delta-maxNumWord), Math.min(bestFragment.length(),delta+maxNumWord));  //sanity chec
+			flag = flag+delta+1;
 		    matchList.add(new Match(matched,delta));
 		  }
 	    }
 	    else
 		  continue;
-	    }
+	  }
     }
-	catch(InvalidTokenOffsetsException e){
-    }
+	catch(InvalidTokenOffsetsException e) {}
     return matchList.toArray(new Match[matchList.size()]);
   }
-  // TODO for 傅蕎
 }
