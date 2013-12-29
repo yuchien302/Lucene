@@ -36,7 +36,7 @@ public class HighlightAdapter implements BaseHighlightAdapter {
   public static final int maxNumWord = AdapterConstantSet.DEFAULT_MAX_LENGTH;
   public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException
   {
-	final QueryScorer scorer = new QueryScorer(query);
+    final QueryScorer scorer = new QueryScorer(query);
     final IndexReader reader = searcher.getIndexReader();
     highlighter=new Highlighter(scorer);
   
@@ -48,7 +48,7 @@ public class HighlightAdapter implements BaseHighlightAdapter {
 	  while(iterator.hasNext()) {
 	    StorableField field = iterator.next();
 	    String fieldContent = searcher.doc(docID).getField(field.name()).stringValue();
-	    String[] bestFragments = highlighter.getBestFragments(analyzer, field.name(), fieldContent,AdapterConstantSet.DEFAULT_MAX_CATCH);
+	    String[] bestFragments = highlighter.getBestFragments(analyzer, field.name(), fieldContent,1000);
 		for(String bestFragment:bestFragments){
 		  String lowerBestFragment = bestFragment.toLowerCase();
 		  String keyword = lowerBestFragment.substring(lowerBestFragment.indexOf("<b>",0)+3,lowerBestFragment.indexOf("</b>",0));
@@ -58,12 +58,15 @@ public class HighlightAdapter implements BaseHighlightAdapter {
 		  bestFragment = bestFragment.replace("</B>","");
 		  int flag = 0;
 		  while(true){
-		    int delta = lowerBestFragment.indexOf(keyword,flag);
-		    if(delta==-1) // if no keyword in text
+		    flag = lowerBestFragment.indexOf(keyword,flag);
+			if(flag == -1) // if no keyword in text
 		      break;
-		    String matched = bestFragment.substring(Math.max(0,delta-maxNumWord), Math.min(bestFragment.length(),delta+maxNumWord));  //sanity chec
-			flag = delta+keyword.length()+1;
-		    matchList.add(new Match(matched,delta, keyword.length())); //TODO change qlength
+			String matched = bestFragment.substring(Math.max(0,flag-maxNumWord), Math.min(bestFragment.length(),flag+maxNumWord));  //sanity chec
+			String lowerMatched = lowerBestFragment.substring(Math.max(0,flag-maxNumWord), Math.min(bestFragment.length(),flag+maxNumWord));  //sanity chec
+			int delta = lowerMatched.indexOf(keyword,flag);
+		    
+			flag = flag+keyword.length()+1;
+		    matchList.add(new Match(matched,delta,keyword.length()));
 		  }
 	    }
 	  }
