@@ -59,7 +59,9 @@ public class PostingsHighlightAdapter implements BaseHighlightAdapter {
       return null;
     }
     try {
-      String result = highlighter.highlight("title", query, searcher,
+      int parseEnd = query.toString().indexOf(':');
+      String fieldName = query.toString().substring(0, parseEnd); 
+      String result = highlighter.highlight(fieldName, query, searcher,
           topDocs)[0];
 
       return parse(result, final_length);
@@ -123,7 +125,7 @@ public class PostingsHighlightAdapter implements BaseHighlightAdapter {
         int postPosition=k;
         postPosition=length;
         String post=clean(s.substring(j+4,postPosition),"post");
-        Match match=new Match(pre+temp+post, pre.length(), 0); // TODO change qlength
+        Match match=new Match(pre+temp+post, pre.length(), 6); // TODO change qlength
         result.add(match);
         i=j+3;
       }

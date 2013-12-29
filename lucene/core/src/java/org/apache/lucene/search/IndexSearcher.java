@@ -661,7 +661,6 @@ public class IndexSearcher {
   public Summary summarize(Query query, int docId, BaseHighlightAdapter highlighter) throws IOException {
     // TODO
     Match[] matches = highlighter.highlight(docId, this , query);
-//    System.out.println("[summarize] matched:" + matches.length);
     Summary sum = new Summary(matches, docId);
     return sum;
   }  

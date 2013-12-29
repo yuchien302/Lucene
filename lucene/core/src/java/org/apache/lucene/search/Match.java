@@ -25,10 +25,11 @@ public class Match {
   private int trimPosition;
   
   public Match(String _context,int _position, int _qlength){
+    
     context = _context;
     position = trimPosition = _position;
     qlength = _qlength;
-    System.out.println("[important!!]"+qlength);
+    
   }
   public int getPosition(){
     return trimPosition;
@@ -41,26 +42,26 @@ public class Match {
   public String trim(int maxMatchLength){
     //TODO find the required length string from context and output
     
-    context = "Lucene,sdfv Lucene, qe Lucene,davdsfv Lucene .";
-    maxMatchLength = 20;
-    position = 38;
+//    context = "Lucene,sdfv Lucene, qe Lucene,davdsfv Lucene .";
+//    maxMatchLength = 20;
+//    position = 38;
     
-    int end = position+qlength;
+    
     
     int part = (int) Math.ceil((maxMatchLength-qlength)/2);
     
-    end = ((end+part)>context.length())? context.length() : end+part;
+    int end = ((position+qlength+part)>context.length())? context.length() : position+qlength+part;
     int begin = (position-part)<0? 0 : position-part;
     
     end = context.indexOf(" ", end);
-    begin = context.lastIndexOf(" ", begin);
-
-    begin = begin<0? 0 : begin;
+    begin = context.lastIndexOf(" ", begin)+1;
+//    if(begin!=0) begin++;
+//    begin = begin<0? 0 : begin;
     end = (end>context.length()||end==-1)? context.length() : end;
     
     trimPosition = position - begin;
     
 //    System.out.println("[important!!]"+context.substring(begin, end).trim());
-    return context.substring(begin, end).trim();
+    return context.substring(begin, end);
   }
 }
