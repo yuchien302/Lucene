@@ -33,7 +33,7 @@ import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 
 public class HighlightAdapter implements BaseHighlightAdapter {
   private Highlighter highlighter;
-  public static final int maxNumWord = 100;
+  public static final int maxNumWord = AdapterConstantSet.DEFAULT_MAX_LENGTH;
   public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException
   {
     final QueryScorer scorer = new QueryScorer(query);
@@ -48,8 +48,8 @@ public class HighlightAdapter implements BaseHighlightAdapter {
 	  while(iterator.hasNext()) {
 	    StorableField field = iterator.next();
 	    String fieldContent = searcher.doc(docID).getField(field.name()).stringValue();
-	    String bestFragment = highlighter.getBestFragment(analyzer, field.name(), fieldContent);
-	    if(bestFragment!=null){
+	    String[] bestFragments = highlighter.getBestFragments(analyzer, field.name(), fieldContent,AdapterConstantSet.DEFAULT_MAX_CATCH);
+		for(String bestFragment:bestFragments){
 		  String lowerBestFragment = bestFragment.toLowerCase();
 		  String keyword = lowerBestFragment.substring(lowerBestFragment.indexOf("<b>",0)+3,lowerBestFragment.indexOf("</b>",0));
 		  lowerBestFragment = lowerBestFragment.replace("<b>","");
@@ -66,8 +66,6 @@ public class HighlightAdapter implements BaseHighlightAdapter {
 		    matchList.add(new Match(matched,delta));
 		  }
 	    }
-	    else
-		  continue;
 	  }
     }
 	catch(InvalidTokenOffsetsException e) {}
