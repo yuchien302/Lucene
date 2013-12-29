@@ -34,8 +34,8 @@ import org.apache.lucene.search.vectorhighlight.SimpleFragmentsBuilder;
 
 public class FVHAdapter implements BaseHighlightAdapter{
   //TODO actually define the constant
-  public static final String PRE_TAG = "TheMatchTagTryToGetThePlaceOfThisTag";   //pre tag
-  public static final String POST_TAG = "";            //post tag
+  public static final String PRE_TAG = "TheMatchPreTagTryToGetThePlaceOfThisTag";   //pre tag
+  public static final String POST_TAG = "TheMatchPostTagTryToGetThePlaceOfThisTag";            //post tag
   
   private int maxCatch;
   private FastVectorHighlighter highlighter;
@@ -59,30 +59,33 @@ public class FVHAdapter implements BaseHighlightAdapter{
       StorableField field = iterator.next();
       String[] bestFragments = highlighter.getBestFragments(fieldQuery,searcher.getIndexReader(),docID,field.name(), AdapterConstantSet.DEFAULT_MAX_LENGTH, maxCatch, new SimpleFragListBuilder(), new SimpleFragmentsBuilder(), new String[]{PRE_TAG}, new String[]{POST_TAG},  new DefaultEncoder());
       for(String bestFragment:bestFragments){
-        Integer[] positions = getPositions(bestFragment);
-        String matched = removePreTag(bestFragment);
+        Integer[] prePositions = getPositions(bestFragment,PRE_TAG);
+        Integer[] postPositions = getPositions(bestFragment,POST_TAG);
+        String matched;
+        matched = removeTag(bestFragment,PRE_TAG);
+        matched = removeTag(matched,POST_TAG);
         System.out.println(matched);
         
-        for(int i = 0;i < positions.length;i++){
-          matchList.add(new Match(matched,positions[i] - i * (PRE_TAG.length())));
+        for(int i = 0;i < prePositions.length;i++){
+          matchList.add(new Match(matched,prePositions[i] - i * (PRE_TAG.length()) - i * (POST_TAG.length()),postPositions[i] - prePositions[i]));
         }
       }
     }
     return matchList.toArray(new Match[0]);
   }
-  private Integer[] getPositions(String bestFragment){
+  private Integer[] getPositions(String bestFragment,String tag){
     ArrayList<Integer> posList = new ArrayList<Integer>(0);
     int delta = 0;
     while(true){
-      if((delta = bestFragment.indexOf(PRE_TAG,delta)) == -1)
+      if((delta = bestFragment.indexOf(tag,delta)) == -1)
         break;
       posList.add(new Integer(delta));
       delta += 1;
     }
     return posList.toArray(new Integer[0]);
   }
-  private String removePreTag(String bestFragment){
-    String[] splits = bestFragment.split(PRE_TAG);
+  private String removeTag(String bestFragment,String tag){
+    String[] splits = bestFragment.split(tag);
     String match = "";
     for(String s:splits){
       match = match + s;
