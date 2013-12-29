@@ -33,7 +33,13 @@ import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 
 public class HighlightAdapter implements BaseHighlightAdapter {
   private Highlighter highlighter;
-  public static final int maxNumWord = AdapterConstantSet.DEFAULT_MAX_LENGTH;
+  private int maxNumFragments;
+  public HighlightAdapter(){
+	this(1000);
+  }
+  public HighlightAdapter(int _maxNumFragments){
+    maxNumFragments = _maxNumFragments;
+  }
   public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException
   {
     final QueryScorer scorer = new QueryScorer(query);
@@ -48,30 +54,32 @@ public class HighlightAdapter implements BaseHighlightAdapter {
 	  while(iterator.hasNext()) {
 	    StorableField field = iterator.next();
 	    String fieldContent = searcher.doc(docID).getField(field.name()).stringValue();
-	    String[] bestFragments = highlighter.getBestFragments(analyzer, field.name(), fieldContent,1000);
+	    String[] bestFragments = highlighter.getBestFragments(analyzer, field.name(), fieldContent, maxNumFragments);
 		for(String bestFragment:bestFragments){
-		  String lowerBestFragment = bestFragment.toLowerCase();
-		  String keyword = lowerBestFragment.substring(lowerBestFragment.indexOf("<b>",0)+3,lowerBestFragment.indexOf("</b>",0));
-		  lowerBestFragment = lowerBestFragment.replace("<b>","");
-		  lowerBestFragment = lowerBestFragment.replace("</b>","");
-		  bestFragment = bestFragment.replace("<B>","");
-		  bestFragment = bestFragment.replace("</B>","");
-		  int flag = 0;
-		  while(true){
-		    flag = lowerBestFragment.indexOf(keyword,flag);
-			if(flag == -1) // if no keyword in text
-		      break;
-			String matched = bestFragment.substring(Math.max(0,flag-maxNumWord), Math.min(bestFragment.length(),flag+maxNumWord));  //sanity chec
-			String lowerMatched = lowerBestFragment.substring(Math.max(0,flag-maxNumWord), Math.min(bestFragment.length(),flag+maxNumWord));  //sanity chec
-			int delta = lowerMatched.indexOf(keyword,flag);
-		    
-			flag = flag+keyword.length()+1;
-		    matchList.add(new Match(matched,delta,keyword.length()));
+		  Integer[] prePositions = getPositions(bestFragment,"<B>");
+		  Integer[] postPositions = getPositions(bestFragment,"</B>");
+		  String matched;
+		  matched = bestFragment.replace("<B>","");
+		  matched = matched.replace("</B>","");
+		
+		  for(int i = 0;i < prePositions.length;i++){
+		    matchList.add(new Match(matched,prePositions[i] - i * 3 - i * 4,postPositions[i] - prePositions[i] - 3));
 		  }
 	    }
 	  }
     }
 	catch(InvalidTokenOffsetsException e) {}
     return matchList.toArray(new Match[matchList.size()]);
+  }
+  private Integer[] getPositions(String bestFragment,String tag){
+    ArrayList<Integer> posList = new ArrayList<Integer>();
+    int delta = 0;
+    while(true){
+      if((delta = bestFragment.indexOf(tag,delta)) == -1)
+        break;
+      posList.add(new Integer(delta));
+      delta += 1;
+    }
+    return posList.toArray(new Integer[0]);
   }
 }

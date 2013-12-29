@@ -62,9 +62,8 @@ public class FVHAdapter implements BaseHighlightAdapter{
         Integer[] prePositions = getPositions(bestFragment,PRE_TAG);
         Integer[] postPositions = getPositions(bestFragment,POST_TAG);
         String matched;
-        matched = removeTag(bestFragment,PRE_TAG);
-        matched = removeTag(matched,POST_TAG);
-
+        matched = bestFragment.replace(PRE_TAG,"");
+        matched = matched.replace(POST_TAG,"");
         
         for(int i = 0;i < prePositions.length;i++){
           matchList.add(new Match(matched,prePositions[i] - i * (PRE_TAG.length()) - i * (POST_TAG.length()),postPositions[i] - prePositions[i] - PRE_TAG.length()));
@@ -83,14 +82,6 @@ public class FVHAdapter implements BaseHighlightAdapter{
       delta += 1;
     }
     return posList.toArray(new Integer[0]);
-  }
-  private String removeTag(String bestFragment,String tag){
-    String[] splits = bestFragment.split(tag);
-    String match = "";
-    for(String s:splits){
-      match = match + s;
-    }
-    return match;
   }
   // TODO for 睿謙
 }
