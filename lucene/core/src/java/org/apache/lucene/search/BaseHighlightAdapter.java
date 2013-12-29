@@ -31,7 +31,7 @@ public interface BaseHighlightAdapter {
  */
 class AdapterConstantSet{
   public static final int DEFAULT_MAX_LENGTH = 100;
-  public static final int DEFAULT_MAX_CATCH = 2147483647;
+  public static final int DEFAULT_MAX_CATCH = Integer.MAX_VALUE;
   //Do not allow to initialize a object of this class
   private AdapterConstantSet(){}
 }
