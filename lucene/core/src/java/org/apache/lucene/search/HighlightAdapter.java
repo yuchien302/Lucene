@@ -48,7 +48,7 @@ public class HighlightAdapter implements BaseHighlightAdapter {
 	  while(iterator.hasNext()) {
 	    StorableField field = iterator.next();
 	    String fieldContent = searcher.doc(docID).getField(field.name()).stringValue();
-	    String[] bestFragments = highlighter.getBestFragments(analyzer, field.name(), fieldContent,AdapterConstantSet.DEFAULT_MAX_CATCH);
+	    String[] bestFragments = highlighter.getBestFragments(analyzer, field.name(), fieldContent,1000);
 		for(String bestFragment:bestFragments){
 		  String lowerBestFragment = bestFragment.toLowerCase();
 		  String keyword = lowerBestFragment.substring(lowerBestFragment.indexOf("<b>",0)+3,lowerBestFragment.indexOf("</b>",0));
@@ -63,7 +63,7 @@ public class HighlightAdapter implements BaseHighlightAdapter {
 		      break;
 		    String matched = bestFragment.substring(Math.max(0,delta-maxNumWord), Math.min(bestFragment.length(),delta+maxNumWord));  //sanity chec
 			flag = flag+delta+1;
-		    matchList.add(new Match(matched,delta));
+		    matchList.add(new Match(matched,delta, keyword.length()));
 		  }
 	    }
 	  }
