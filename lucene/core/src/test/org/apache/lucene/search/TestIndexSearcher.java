@@ -155,7 +155,8 @@ public class TestIndexSearcher extends LuceneTestCase {
   
   @Test
   public void testSimpleSummarize()throws Exception{
-    IndexWriter writer = new IndexWriter(dir, newIndexWriterConfig(TEST_VERSION_CURRENT, new MockAnalyzer(random())));  
+    Directory dir2 =  newDirectory();;
+    IndexWriter writer = new IndexWriter(dir2, newIndexWriterConfig(TEST_VERSION_CURRENT, new MockAnalyzer(random())));  
     Document doc = new Document();
     FieldType type = new FieldType(TextField.TYPE_STORED);
     Field field = new Field("contents", testString, type);
@@ -166,17 +167,17 @@ public class TestIndexSearcher extends LuceneTestCase {
     IndexSearcher searcher = new IndexSearcher(reader);
     Query query = new TermQuery(new Term("contents", "apple"));      
 
-    /*int hitsPerPage=1;
+    int hitsPerPage=1;
     TopScoreDocCollector collector = TopScoreDocCollector.create(hitsPerPage, true);
     searcher.search(query, collector);
     ScoreDoc[] hits = collector.topDocs().scoreDocs;
-    int docId = hits[0].doc;*/
+    int docId = hits[0].doc;
     
-    int docId = 100;
+    //int docId = 0;
 
     String matchStr1 = new String("where apple is highlighted");
     String matchStr2 = new String("Year!!! An apple a day keeps");
-    String matchString = new String("  In docId=100, matched 2 times.\n  #1 : position=6 : "+matchStr1+"\n  #2 : position=11 : "+matchStr2+"\n");
+    String matchString = new String("  In docId="+docId+", matched 2 times.\n  #1 : position=6 : "+matchStr1+"\n  #2 : position=11 : "+matchStr2+"\n");
     
     
     Summary summary = searcher.summarize(query, docId);
@@ -206,7 +207,11 @@ public class TestIndexSearcher extends LuceneTestCase {
 
     Query query = new TermQuery(new Term("contents", "apple"));  
     
-    int docId = 100;
+    int hitsPerPage=1;
+    TopScoreDocCollector collector = TopScoreDocCollector.create(hitsPerPage, true);
+    searcher.search(query, collector);
+    ScoreDoc[] hits = collector.topDocs().scoreDocs;
+    int docId = hits[0].doc;
     
     FVHAdapter highlighter = new FVHAdapter();
     Summary summary = searcher.summarize(query, docId,highlighter);
@@ -214,7 +219,7 @@ public class TestIndexSearcher extends LuceneTestCase {
     
     String matchStr1 = new String("where apple is highlighted");
     String matchStr2 = new String("Year!!! An apple a day keeps");
-    String matchString = new String("  In docId=100, matched 2 times.\n  #1 : position=6 : "+matchStr1+"\n  #2 : position=11 : "+matchStr2+"\n");
+    String matchString = new String("  In docId="+docId+", matched 2 times.\n  #1 : position=6 : "+matchStr1+"\n  #2 : position=11 : "+matchStr2+"\n");
     
     System.out.println(summary.trim(20));
     assertEquals(summary.trim(20),matchString);
