@@ -58,8 +58,9 @@ public class HighlightAdapter implements BaseHighlightAdapter {
 		  bestFragment = bestFragment.replace("</B>","");
 		  int flag = 0;
 		  while(true){
-		    String matched = bestFragment.substring(Math.max(0,delta-maxNumWord), Math.min(bestFragment.length(),delta+maxNumWord));  //sanity chec
-			int delta = matched.indexOf(keyword,flag);
+		    int delta = bestFragment.indexOf(keyword,flag);
+			String matched = bestFragment.substring(Math.max(0,delta-maxNumWord), Math.min(bestFragment.length(),delta+maxNumWord));  //sanity chec
+			delta = matched.indexOf(keyword,flag);
 		    if(delta==-1) // if no keyword in text
 		      break;
 			flag = delta+keyword.length()+1;
