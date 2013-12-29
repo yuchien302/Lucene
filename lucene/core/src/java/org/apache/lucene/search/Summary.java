@@ -23,6 +23,7 @@ public class Summary {
   private int matchCount;
   private Match[] matches;
   private int fragmentLength=20;
+  private int localposition;
   
   public Summary(Match[] matches, int docId) {
     this.docId = docId;
@@ -33,10 +34,10 @@ public class Summary {
   }
   
   public String toString(){
-    return this.toString(fragmentLength);
+    return this.trim(21474835);
   }
   
-  public String toString(int maxLengthReturned){
+  public String trim(int maxLengthReturned){
     String str=("  In docId=" + docId + ", matched " + matchCount);
     if( (matchCount==1) || (matchCount==0) )
       str += " time.\n";
@@ -44,7 +45,8 @@ public class Summary {
       str += " times.\n";
     
     for(int i = 0; i<matchCount; i++){
-      str+=("  #" + (i+1) + " : position="+ matches[i].getPosition() + " : " + matches[i].toString(maxLengthReturned) + "\n");
+      matches[i].trim(maxLengthReturned); // so that getPosition() will be correct to trim result;
+      str+=("  #" + (i+1) + " : position=" + matches[i].getPosition() + " : " + matches[i].trim(maxLengthReturned) + "\n");
     }
     return str;
     

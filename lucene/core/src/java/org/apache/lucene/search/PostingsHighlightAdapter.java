@@ -73,6 +73,8 @@ public class PostingsHighlightAdapter implements BaseHighlightAdapter {
 
   Match[] parse(String s, int extra_length)
   {
+    if(s==null)
+      return (new Match[0]);
     ArrayList<Match> result=new ArrayList<Match>();
     int i=0;
     int j=0;

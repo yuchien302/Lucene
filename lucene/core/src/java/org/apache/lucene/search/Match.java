@@ -21,20 +21,24 @@ public class Match {
   // TODO 
   private String context;
   private int position;
-  public Match(String _context,int _position){
+  private int qlength;
+  private int trimPosition;
+  
+  public Match(String _context,int _position, int qlength){
     context = _context;
-    position = _position;
+    position = trimPosition = _position;
+    this.qlength = qlength;
   }
   public int getPosition(){
-    return position;
+    return trimPosition;
   }
   
-  public String toString(int maxMatchLength){
+  public String trim(int maxMatchLength){
     //TODO find the required length string from context and output
     
-//    context = "A a soft a soft";
-//    maxMatchLength = 20;
-//    position = 4;
+    context = "Lucene,sdfv Lucene, qe Lucene,davdsfv Lucene.";
+    maxMatchLength = 20;
+    position = 38;
     
     int end = context.indexOf(" ", position);
     int qlength = end-position;
@@ -49,6 +53,7 @@ public class Match {
     begin = begin<0? 0 : begin;
     end = (end>context.length()||end==-1)? context.length() : end;
     
+    trimPosition = position - begin;
     
 //    System.out.println("[important!!]"+context.substring(begin, end).trim());
     return context.substring(begin, end).trim();
