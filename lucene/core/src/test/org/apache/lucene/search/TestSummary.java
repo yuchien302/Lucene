@@ -31,10 +31,11 @@ public class TestSummary extends LuceneTestCase {
     matches[2] = new Match("Very Happy!!! Hahaha kerkerker =)",5);
     summary = new Summary(matches,docID);
     System.out.println(summary.toString());
-    String matchString = new String("In docId=0, matched 3 times.\n#0 : 2014 Happy New Year!at position:5\n#1 : Happy Birthday!at position:0\n#2 : Very Happy!!! Hahaha kerkerker =)at position:5\n");
+    String matchString = new String("  In docId=0, matched 3 times.\n  #1 : position=5 : 2014 Happy New Year!\n  #2 : position=0 : Happy Birthday!\n  #3 : position=5 : Very Happy!!! Hahaha kerkerker =)\n");
+    System.out.println(matchString);
     assertEquals(matchString,summary.toString());
   }
-  /*public void testToStringWithShortInteger(){
+  /*public void testTrimWithShortInteger(){
     String string1 = new String("It explains the creation of JUnit tests and how to run them in Eclipse or via own code.");
     String string2 = new String("The following code shows a JUnit test method.");
     String string3 = new String("To run your JUnit tests outside Eclipse you need to add the JUnit library jar to the classpath of your program.");
@@ -45,13 +46,13 @@ public class TestSummary extends LuceneTestCase {
     matches[1] = new Match(string2,27);
     matches[2] = new Match(string3,12);
     summary = new Summary(matches,docID);
-    System.out.println(summary.toString(10));
-    String matchString = new String("In docId=0, matched 3 times.\n#0 : "+matchStr1+"at position:28\n#1 : "+matchStr2+"at position:27\n#2 : "+matchStr3+"at position:12\n");
+    System.out.println(summary.trim(10));
+    String matchString = new String("  In docId=0, matched 3 times.\n  #1 : position=28 : "+matchStr1+"\n  #2 : position=27 : "+matchStr2+"\n  #3 : position=12 : "+matchStr3+"\n");
     assertEquals(matchString,summary.toString());
     
-  }*/
+  }
 
-  /*public void testToStringWithLongInteger(){
+  public void testToTrimWithLongInteger(){
   String string1 = new String("It explains the creation of JUnit tests and how to run them in Eclipse or via own code.");
   String string2 = new String("The following code shows a JUnit test method.");
   String string3 = new String("To run your JUnit tests outside Eclipse you need to add the JUnit library jar to the classpath of your program.");
@@ -62,11 +63,11 @@ public class TestSummary extends LuceneTestCase {
   matches[1] = new Match(string2,27);
   matches[2] = new Match(string3,12);
   summary = new Summary(matches,docID);
-  System.out.println(summary.toString(30));
-  String matchString = new String("In docId=0, matched 3 times.\n#0 : "+matchStr1+"at position:28\n#1 : "+matchStr2+"at position:27\n#2 : "+matchStr3+"at position:12\n");
+  System.out.println(summary.trim(30));
+  String matchString = new String("  In docId=0, matched 3 times.\n  #1 : position=28 : "+matchStr1+"\n  #2 : position=27 : "+matchStr2+"\n  #3 : position=12 : "+matchStr3+"\n");
   assertEquals(matchString,summary.toString());
   
-}*/   
+}*/
 
 
 }

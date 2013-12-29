@@ -17,6 +17,7 @@ package org.apache.lucene.search;
  * limitations under the License.
  */
 
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -32,8 +33,13 @@ import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.RandomIndexWriter;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.index.FieldInfo.IndexOptions;
+import org.apache.lucene.search.postingshighlight.PostingsHighlighter;
+import org.apache.lucene.search.vectorhighlight.FastVectorHighlighter;
+import org.apache.lucene.search.vectorhighlight.FieldQuery;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.IOUtils;
@@ -45,7 +51,8 @@ import org.junit.Test;
 public class TestIndexSearcher extends LuceneTestCase {
   Directory dir;
   IndexReader reader;
-  
+  String testString = new String("This is a test where apple is highlighted and should be highlighted. Happy New Year!!! An apple a day keeps the doctor away!!!");
+  Query query = new TermQuery(new Term("contents", "apple"));  
   @Override
   public void setUp() throws Exception {
     super.setUp();
@@ -148,32 +155,121 @@ public class TestIndexSearcher extends LuceneTestCase {
   
   @Test
   public void testSimpleSummarize()throws Exception{
-    //Directory dir = newDirectory();
     IndexWriter writer = new IndexWriter(dir, newIndexWriterConfig(TEST_VERSION_CURRENT, new MockAnalyzer(random())));  
     Document doc = new Document();
     FieldType type = new FieldType(TextField.TYPE_STORED);
-    Field field = new Field("contents", "This is a test where apple is highlighted and should be highlighted. Happy New Year!!! An apple a day keeps the doctor away!!!", type);
-    doc.add(field);
+    Field field = new Field("contents", testString, type);
+    doc.add(field);                      
     writer.addDocument(doc);    
-    writer.close();
 
     IndexReader reader = DirectoryReader.open(writer, true);
     IndexSearcher searcher = new IndexSearcher(reader);
     
-    TermQuery query = new TermQuery(new Term("contents", "apple"));
-    
-    /*Match[] matches = new Match[2];
-    matches[0] = new Match("where apple is highlighted",6);
-    matches[1] = new Match("Year!!! An apple a day",11);*/    
+
+    /*int hitsPerPage=1;
+    TopScoreDocCollector collector = TopScoreDocCollector.create(hitsPerPage, true);
+    searcher.search(query, collector);
+    ScoreDoc[] hits = collector.topDocs().scoreDocs;
+    int docId = hits[0].doc;
+    */
+    int docId = 100;
+
     String matchStr1 = new String("where apple is highlighted");
-    String matchStr2 = new String("Year!!! An apple a day");
-    String matchString = new String("In docId=0, matched 2 times.\n#0 : "+matchStr1+"at position 6\n#1 : "+matchStr2+"at position 11\n");
+    String matchStr2 = new String("Year!!! An apple a day keeps");
+    String matchString = new String("  In docId=0, matched 2 times.\n  #1 : position=21 : "+matchStr1+"\n  #2 : position=90 : "+matchStr2+"\n");
     
-    int docId = 0;
     
     Summary summary = searcher.summarize(query, docId);
+    System.out.println(summary.toString());
     assertEquals(summary.toString(),matchString);
-    System.out.println(searcher.summarize(query,0));
+    writer.close();   
+  }
+  
+  @Test
+  public void testSummarizeWithFastVectorHighlighter() throws Exception {
+    //fail("need to be implement");
+    IndexWriter writer = new IndexWriter(dir, newIndexWriterConfig(TEST_VERSION_CURRENT, new MockAnalyzer(random())));
+    Document doc = new Document();
+    FieldType type = new FieldType(TextField.TYPE_STORED);
+    type.setStoreTermVectorOffsets(true);
+    type.setStoreTermVectorPositions(true);
+    type.setStoreTermVectors(true);
+    type.freeze();
+    Field field = new Field("contents", testString, type);
+    
+    doc.add(field);
+    writer.addDocument(doc);
+    
+    IndexReader reader = DirectoryReader.open(writer, true);
+    IndexSearcher searcher = new IndexSearcher(reader);
+    int docId = 100;
+    
+    BaseHighlightAdapter highlighter = new FVHAdapter();
+    Summary summary = searcher.summarize(query, docId,highlighter);
+
+    
+    String matchStr1 = new String("where apple is highlighted");
+    String matchStr2 = new String("Year!!! An apple a day keeps");
+    String matchString = new String("  In docId=0, matched 2 times.\n  #1 : position=13 : "+matchStr1+"\n  #2 : position=82 : "+matchStr2+"\n");
+    
+    System.out.println(summary.toString());
+    assertEquals(summary.toString(),matchString);
+    reader.close();
+    writer.close();
+    dir.close();
+    
+  }
+  
+  @Test
+  public void testSummarizeWithPostingHighlighter() throws Exception{
+    
+    IndexWriterConfig iwc = newIndexWriterConfig(TEST_VERSION_CURRENT, new MockAnalyzer(random()));
+    iwc.setMergePolicy(newLogMergePolicy());
+    RandomIndexWriter iw = new RandomIndexWriter(random(), dir, iwc);
+    
+    FieldType offsetsType = new FieldType(TextField.TYPE_STORED);
+    offsetsType.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
+    Field body = new Field("contents", "", offsetsType);
+    Document doc = new Document();
+    doc.add(body);
+    
+    body.setStringValue(testString);
+    iw.addDocument(doc);
+    //body.setStringValue("Highlighting the first term. Hope it works.");
+    //iw.addDocument(doc);*/
+    
+    IndexReader ir = iw.getReader();
+    iw.close();
+    
+    IndexSearcher searcher = newSearcher(ir);
+    //PostingsHighlighter highlighter = new PostingsHighlighter();
+    Query query = new TermQuery(new Term("body", "highlighting"));
+    //TopDocs topDocs = searcher.search(query, null, 10, Sort.INDEXORDER);
+    
+    /*TopDocs topDocs = searcher.search(query, null, 10, Sort.INDEXORDER);
+    assertEquals(2, topDocs.totalHits);
+    String snippets[] = highlighter.highlight("body", query, searcher, topDocs);
+    assertEquals(2, snippets.length);
+    assertEquals("Just a test <b>highlighting</b> from postings. ", snippets[0]);
+    assertEquals("<b>Highlighting</b> the first term. ", snippets[1]);*/
+    
+    /*int hitsPerPage=1;
+    TopScoreDocCollector collector = TopScoreDocCollector.create(hitsPerPage, true);
+    searcher.search(query, collector);
+    ScoreDoc[] hits = collector.topDocs().scoreDocs;
+    int docId = hits[0].doc;*/
+    
+    int docId = 100;
+    
+    BaseHighlightAdapter highlighter = new PostingsHighlightAdapter();
+    Summary summary = searcher.summarize(query, docId, highlighter);
+    System.out.println(summary.toString());
+    
+    String matchString = new String("to be done");
+    
+    assertEquals(summary.toString(),matchString);
+    ir.close();
+    dir.close();
     
   }
   
