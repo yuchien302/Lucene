@@ -52,7 +52,7 @@ public class TestIndexSearcher extends LuceneTestCase {
   Directory dir;
   IndexReader reader;
   String testString = new String("This is a test where apple is highlighted and should be highlighted. Happy New Year!!! An apple a day keeps the doctor away!!!");
-  Query query = new TermQuery(new Term("contents", "apple"));  
+  
   @Override
   public void setUp() throws Exception {
     super.setUp();
@@ -164,30 +164,31 @@ public class TestIndexSearcher extends LuceneTestCase {
 
     IndexReader reader = DirectoryReader.open(writer, true);
     IndexSearcher searcher = new IndexSearcher(reader);
-    
+    Query query = new TermQuery(new Term("contents", "apple"));      
 
     /*int hitsPerPage=1;
     TopScoreDocCollector collector = TopScoreDocCollector.create(hitsPerPage, true);
     searcher.search(query, collector);
     ScoreDoc[] hits = collector.topDocs().scoreDocs;
-    int docId = hits[0].doc;
-    */
+    int docId = hits[0].doc;*/
+    
     int docId = 100;
 
     String matchStr1 = new String("where apple is highlighted");
     String matchStr2 = new String("Year!!! An apple a day keeps");
-    String matchString = new String("  In docId=0, matched 2 times.\n  #1 : position=21 : "+matchStr1+"\n  #2 : position=90 : "+matchStr2+"\n");
+    String matchString = new String("  In docId=100, matched 2 times.\n  #1 : position=6 : "+matchStr1+"\n  #2 : position=11 : "+matchStr2+"\n");
     
     
     Summary summary = searcher.summarize(query, docId);
-    System.out.println(summary.toString());
-    assertEquals(summary.toString(),matchString);
+    
+    System.out.println("SIMPLE");
+    System.out.println(summary.trim(20));
+    assertEquals(summary.trim(20),matchString);
     writer.close();   
   }
   
   @Test
   public void testSummarizeWithFastVectorHighlighter() throws Exception {
-    //fail("need to be implement");
     IndexWriter writer = new IndexWriter(dir, newIndexWriterConfig(TEST_VERSION_CURRENT, new MockAnalyzer(random())));
     Document doc = new Document();
     FieldType type = new FieldType(TextField.TYPE_STORED);
@@ -202,21 +203,23 @@ public class TestIndexSearcher extends LuceneTestCase {
     
     IndexReader reader = DirectoryReader.open(writer, true);
     IndexSearcher searcher = new IndexSearcher(reader);
+
+    Query query = new TermQuery(new Term("contents", "apple"));  
+    
     int docId = 100;
     
-    BaseHighlightAdapter highlighter = new FVHAdapter();
+    FVHAdapter highlighter = new FVHAdapter();
     Summary summary = searcher.summarize(query, docId,highlighter);
 
     
     String matchStr1 = new String("where apple is highlighted");
     String matchStr2 = new String("Year!!! An apple a day keeps");
-    String matchString = new String("  In docId=0, matched 2 times.\n  #1 : position=13 : "+matchStr1+"\n  #2 : position=82 : "+matchStr2+"\n");
+    String matchString = new String("  In docId=100, matched 2 times.\n  #1 : position=6 : "+matchStr1+"\n  #2 : position=11 : "+matchStr2+"\n");
     
-    System.out.println(summary.toString());
-    assertEquals(summary.toString(),matchString);
+    System.out.println(summary.trim(20));
+    assertEquals(summary.trim(20),matchString);
     reader.close();
     writer.close();
-    dir.close();
     
   }
   
@@ -243,7 +246,7 @@ public class TestIndexSearcher extends LuceneTestCase {
     
     IndexSearcher searcher = newSearcher(ir);
     //PostingsHighlighter highlighter = new PostingsHighlighter();
-    Query query = new TermQuery(new Term("body", "highlighting"));
+    Query query = new TermQuery(new Term("contents", "apple"));
     //TopDocs topDocs = searcher.search(query, null, 10, Sort.INDEXORDER);
     
     /*TopDocs topDocs = searcher.search(query, null, 10, Sort.INDEXORDER);
@@ -263,11 +266,12 @@ public class TestIndexSearcher extends LuceneTestCase {
     
     BaseHighlightAdapter highlighter = new PostingsHighlightAdapter();
     Summary summary = searcher.summarize(query, docId, highlighter);
-    System.out.println(summary.toString());
+    System.out.println("POSTING");
+    System.out.println(summary.trim(20));
     
     String matchString = new String("to be done");
     
-    assertEquals(summary.toString(),matchString);
+    assertEquals(summary.trim(20),matchString);
     ir.close();
     dir.close();
     

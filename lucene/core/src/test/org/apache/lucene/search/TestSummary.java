@@ -26,29 +26,26 @@ public class TestSummary extends LuceneTestCase {
   Summary summary;
   
   public void testToString(){
-    matches[0] = new Match("2014 Happy New Year!",5);
-    matches[1] = new Match("Happy Birthday!",0);
-    matches[2] = new Match("Very Happy!!! Hahaha kerkerker =)",5);
+    matches[0] = new Match("2014 Happy New Year!",5,5);
+    matches[1] = new Match("Happy Birthday!",0,5);
+    matches[2] = new Match("Very Happy!!! Hahaha kerkerker =)",5,5);
     summary = new Summary(matches,docID);
-    System.out.println(summary.toString());
     String matchString = new String("  In docId=0, matched 3 times.\n  #1 : position=5 : 2014 Happy New Year!\n  #2 : position=0 : Happy Birthday!\n  #3 : position=5 : Very Happy!!! Hahaha kerkerker =)\n");
-    System.out.println(matchString);
     assertEquals(matchString,summary.toString());
   }
-  /*public void testTrimWithShortInteger(){
+  public void testTrimWithShortInteger(){
     String string1 = new String("It explains the creation of JUnit tests and how to run them in Eclipse or via own code.");
     String string2 = new String("The following code shows a JUnit test method.");
     String string3 = new String("To run your JUnit tests outside Eclipse you need to add the JUnit library jar to the classpath of your program.");
     String matchStr1 = new String("of JUnit tests");
     String matchStr2 = new String("a JUnit test");
     String matchStr3 = new String("your JUnit tests");
-    matches[0] = new Match(string1,28);
-    matches[1] = new Match(string2,27);
-    matches[2] = new Match(string3,12);
+    matches[0] = new Match(string1,28,5);
+    matches[1] = new Match(string2,27,5);
+    matches[2] = new Match(string3,12,5);
     summary = new Summary(matches,docID);
-    System.out.println(summary.trim(10));
-    String matchString = new String("  In docId=0, matched 3 times.\n  #1 : position=28 : "+matchStr1+"\n  #2 : position=27 : "+matchStr2+"\n  #3 : position=12 : "+matchStr3+"\n");
-    assertEquals(matchString,summary.toString());
+    String matchString = new String("  In docId=0, matched 3 times.\n  #1 : position=3 : "+matchStr1+"\n  #2 : position=2 : "+matchStr2+"\n  #3 : position=5 : "+matchStr3+"\n");
+    assertEquals(matchString,summary.trim(10));
     
   }
 
@@ -59,15 +56,14 @@ public class TestSummary extends LuceneTestCase {
   String matchStr1 = new String("creation of JUnit tests and how");
   String matchStr2 = new String("code shows a JUnit test method.");
   String matchStr3 = new String("To run your JUnit tests outside");
-  matches[0] = new Match(string1,28);
-  matches[1] = new Match(string2,27);
-  matches[2] = new Match(string3,12);
+  matches[0] = new Match(string1,28,5);
+  matches[1] = new Match(string2,27,5);
+  matches[2] = new Match(string3,12,5);
   summary = new Summary(matches,docID);
-  System.out.println(summary.trim(30));
-  String matchString = new String("  In docId=0, matched 3 times.\n  #1 : position=28 : "+matchStr1+"\n  #2 : position=27 : "+matchStr2+"\n  #3 : position=12 : "+matchStr3+"\n");
-  assertEquals(matchString,summary.toString());
+  String matchString = new String("  In docId=0, matched 3 times.\n  #1 : position=12 : "+matchStr1+"\n  #2 : position=13 : "+matchStr2+"\n  #3 : position=12 : "+matchStr3+"\n");
+  assertEquals(matchString,summary.trim(30));
   
-}*/
+}
 
 
 }
