@@ -24,24 +24,29 @@ public class Match {
   private int qlength;
   private int trimPosition;
   
-  public Match(String _context,int _position, int qlength){
+  public Match(String _context,int _position, int _qlength){
     context = _context;
     position = trimPosition = _position;
-    this.qlength = qlength;
+    qlength = _qlength;
+    System.out.println("[important!!]"+qlength);
   }
   public int getPosition(){
     return trimPosition;
+  }
+
+  public int getQueryLength(){
+    return qlength;
   }
   
   public String trim(int maxMatchLength){
     //TODO find the required length string from context and output
     
-    context = "Lucene,sdfv Lucene, qe Lucene,davdsfv Lucene.";
+    context = "Lucene,sdfv Lucene, qe Lucene,davdsfv Lucene .";
     maxMatchLength = 20;
     position = 38;
     
-    int end = context.indexOf(" ", position);
-    int qlength = end-position;
+    int end = position+qlength;
+    
     int part = (int) Math.ceil((maxMatchLength-qlength)/2);
     
     end = ((end+part)>context.length())? context.length() : end+part;

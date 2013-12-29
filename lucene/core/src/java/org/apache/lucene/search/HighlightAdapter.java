@@ -63,7 +63,7 @@ public class HighlightAdapter implements BaseHighlightAdapter {
 		      break;
 		    String matched = bestFragment.substring(Math.max(0,delta-maxNumWord), Math.min(bestFragment.length(),delta+maxNumWord));  //sanity chec
 			flag = delta+keyword.length()+1;
-		    matchList.add(new Match(matched,delta));
+		    matchList.add(new Match(matched,delta, 0)); //TODO change qlength
 		  }
 	    }
 	    else

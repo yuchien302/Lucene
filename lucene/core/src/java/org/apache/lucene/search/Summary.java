@@ -46,7 +46,7 @@ public class Summary {
     
     for(int i = 0; i<matchCount; i++){
       matches[i].trim(maxLengthReturned); // so that getPosition() will be correct to trim result;
-      str+=("  #" + (i+1) + " : position=" + matches[i].getPosition() + " : " + matches[i].trim(maxLengthReturned) + "\n");
+      str+=("  #" + (i+1) + " " + matches[i].getQueryLength()+ " : position=" + matches[i].getPosition() + " : " + matches[i].trim(maxLengthReturned) + "\n");
     }
     return str;
     

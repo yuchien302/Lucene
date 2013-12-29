@@ -123,7 +123,7 @@ public class PostingsHighlightAdapter implements BaseHighlightAdapter {
         int postPosition=k;
         postPosition=length;
         String post=clean(s.substring(j+4,postPosition),"post");
-        Match match=new Match(pre+temp+post, pre.length());
+        Match match=new Match(pre+temp+post, pre.length(), 0); // TODO change qlength
         result.add(match);
         i=j+3;
       }

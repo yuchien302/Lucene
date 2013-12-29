@@ -67,6 +67,9 @@ public class FVHAdapter implements BaseHighlightAdapter{
         System.out.println(matched);
         
         for(int i = 0;i < prePositions.length;i++){
+          
+          System.out.println("[important pre!!]"+(prePositions[i]));
+          System.out.println("[important post!!]"+(postPositions[i]));
           matchList.add(new Match(matched,prePositions[i] - i * (PRE_TAG.length()) - i * (POST_TAG.length()),postPositions[i] - prePositions[i]));
         }
       }
