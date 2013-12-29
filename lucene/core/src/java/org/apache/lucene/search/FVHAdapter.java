@@ -64,13 +64,10 @@ public class FVHAdapter implements BaseHighlightAdapter{
         String matched;
         matched = removeTag(bestFragment,PRE_TAG);
         matched = removeTag(matched,POST_TAG);
-        System.out.println(matched);
+
         
         for(int i = 0;i < prePositions.length;i++){
-          
-          System.out.println("[important pre!!]"+(prePositions[i]));
-          System.out.println("[important post!!]"+(postPositions[i]));
-          matchList.add(new Match(matched,prePositions[i] - i * (PRE_TAG.length()) - i * (POST_TAG.length()),postPositions[i] - prePositions[i]));
+          matchList.add(new Match(matched,prePositions[i] - i * (PRE_TAG.length()) - i * (POST_TAG.length()),postPositions[i] - prePositions[i] - PRE_TAG.length()));
         }
       }
     }
