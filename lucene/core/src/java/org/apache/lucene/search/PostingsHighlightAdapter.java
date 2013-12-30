@@ -171,14 +171,7 @@ public class PostingsHighlightAdapter implements BaseHighlightAdapter {
 }
   
   
-//  
-//  @Override
-//  public Match[] highlight(int docID,IndexSearcher searcher,Query query) throws IOException{
-//    
-//    return null;
-//  
-//  }
-//}
+
 
 
 

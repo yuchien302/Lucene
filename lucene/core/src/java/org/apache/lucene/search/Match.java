@@ -34,20 +34,21 @@ public class Match {
   public int getPosition(){
     return trimPosition;
   }
-
+  
+  public String getContext(){
+    return context;
+  }
+  
   public int getQueryLength(){
     return qlength;
   }
   
   public String trim(int maxMatchLength){
     //TODO find the required length string from context and output
-    
 //    context = "Lucene,sdfv Lucene, qe Lucene,davdsfv Lucene .";
 //    maxMatchLength = 20;
 //    position = 38;
-    
-    
-    
+
     int part = (int) Math.ceil((maxMatchLength-qlength)/2);
     
     int end = ((position+qlength+part)>context.length())? context.length() : position+qlength+part;
@@ -55,13 +56,11 @@ public class Match {
     
     end = context.indexOf(" ", end);
     begin = context.lastIndexOf(" ", begin)+1;
-//    if(begin!=0) begin++;
-//    begin = begin<0? 0 : begin;
+
     end = (end>context.length()||end==-1)? context.length() : end;
     
     trimPosition = position - begin;
-    
-//    System.out.println("[important!!]"+context.substring(begin, end).trim());
+
     return context.substring(begin, end);
   }
 }
